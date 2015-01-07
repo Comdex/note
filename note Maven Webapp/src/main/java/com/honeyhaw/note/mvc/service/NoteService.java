@@ -1,5 +1,7 @@
 package com.honeyhaw.note.mvc.service;
 
+import java.sql.Timestamp;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
@@ -40,6 +42,21 @@ public class NoteService {
 		}else{
 			return createUniqueSlug(length);
 		}
+	}
+	
+	public Map<String, Object> createNote(String slug, int owner){
+		Map<String, Object> note = new HashMap<String, Object>();
+		
+		note.put("url", slug);
+		note.put("content", "");
+		note.put("owner", owner);
+		note.put("create_at", new Timestamp( System.currentTimeMillis()));
+		
+		this.noteMapper.add(note);
+		
+		note.put("id", ((Long)note.get("id")).intValue());
+		
+		return note;
 	}
 	
 	/**

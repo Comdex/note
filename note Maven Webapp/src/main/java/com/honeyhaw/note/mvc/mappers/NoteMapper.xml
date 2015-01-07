@@ -5,11 +5,11 @@
 <mapper namespace="com.honeyhaw.note.mvc.mappers.NoteMapper">
 
 	<!-- 新增记录 -->
-	<insert id="insertNote" parameterType="java.util.Map"
+	<insert id="add" parameterType="java.util.Map"
 		useGeneratedKeys="true" keyProperty="id">
 		insert into
-		note(title,content,owner)
-		values(#{title},#{content},#{owner})
+		note(url,content,owner, create_at)
+		values(#{url},#{content},#{owner}, #{create_at})
 	</insert>
 	<!-- 查询单条记录 -->
 	<select id="query" parameterType="int" resultType="java.util.Map">

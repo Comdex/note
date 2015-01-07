@@ -10,7 +10,7 @@ public interface NoteMapper {
 	public Map<String, Object>  query(int id);
 	public Map<String, Object>  queryByURL(String url);
 	public Map<String, Object>  queryBySlug(String slug);
-    public void insertNote(Map<String, Object> note);
+    public int add(Map<String, Object> note);
      
     public void updateNote(Map<String, Object> note);
      
