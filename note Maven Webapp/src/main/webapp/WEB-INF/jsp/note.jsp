@@ -76,7 +76,7 @@ footer>.container {
 	<footer>
 		<div class="container">
 			<p class="text-muted">
-				&copy; 2010-2014 <a
+				&copy; 2010-2015 <a
 					href=".">Honey Note</a> / <a
 					href="help" title="如何使用  Honey Note">Help</a>
 				/ <a href="about" title=" Honey Note 是什么">About</a>
