@@ -62,25 +62,7 @@ footer>.container {
 				<form class="navbar-form navbar-right" role="search"
 					action="search.html">
 					<div class="form-group">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="${note.url }">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="submit">Go!</button>
-							</span>
-						</div>
-						<!-- /input-group -->
-					</div>
-					<div class="form-group">
-						<label class="radio-inline"> <input type="radio"
-							name="language" id="inlineRadio1" value="plain">
-							Plain
-						</label> <label class="radio-inline"> <input type="radio"
-							name="language" id="inlineRadio2" value="markdown">
-							Markdown
-						</label>
-					</div>
-					<div class="form-group">
-						<a class="btn btn-default"><span class="glyphicon glyphicon-qrcode"></span></a>
+						<a href="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=https://pad.wf/${note.url }&chld=q|2" class="btn btn-default" id="qr"><span class="glyphicon glyphicon-qrcode"></span></a>
 					</div>
 				</form>
 			</div><!--/.nav-collapse -->
@@ -112,6 +94,14 @@ footer>.container {
 	<script>
 		(function($) {
 			$(function() {
+				
+				$('#qr').each(function(){
+					$(this).data("content",'<img alt="" src="' + $(this).attr("href")+'" height="250" width="250" />');
+				}).popover({
+					html:true,
+					trigger: "hover",
+					placement: "bottom"
+				});
 
 				$('#save').on('click', function() {
 					var $btn = $(this).button('loading');
