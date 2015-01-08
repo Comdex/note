@@ -45,14 +45,14 @@ public class API {
 	String text(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable String url) throws Exception {
 		Map<String, Object> note = noteService.queryByURL(url);
-		return note.get("content") + "";
+		return note.get("raw") + "";
 	}
 	
 	@RequestMapping(value = version + "/{url:\\w{2,8}}.md", method = RequestMethod.GET, produces = "text/plain; charset=UTF-8")
 	public @ResponseBody
 	String markdown(HttpServletRequest request, HttpServletResponse response,
 			@PathVariable String url) throws Exception {
-		Map<String, Object> note = noteService.queryByURL(url);
+		Map<String, Object> note = noteService.queryByURL(url, true);
 		return note.get("content") + "";
 	}
 }
