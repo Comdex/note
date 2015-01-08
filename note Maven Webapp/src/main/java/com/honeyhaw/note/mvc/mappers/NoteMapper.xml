@@ -24,7 +24,7 @@
 		select * from note where url = #{url}
 	</select>
 	
-		<!-- 查询单条记录 -->
+	<!-- 查询单条记录 -->
 	<select id="queryBySlug" parameterType="java.lang.String"
 		resultType="java.util.Map">
 		select * from note where url = #{url}
@@ -36,6 +36,14 @@
 		#{title},content = #{content},owner = #{owner}
 		where id = #{id}
 	</update>
+	
+	<!-- 修改记录 -->
+	<update id="update" parameterType="java.util.Map">
+		update note set title =
+		#{title},content = #{content},owner = #{owner}, language = #{language}
+		where id = #{id}
+	</update>
+	
 	<!-- 查询所有记录 -->
 	<select id="selectAll" resultType="java.util.Map">
 		select * from note

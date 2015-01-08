@@ -45,16 +45,28 @@ public class NoteService {
 	}
 	
 	public Map<String, Object> createNote(String slug, int owner){
+		return createNote(slug, "", owner);
+	}
+	
+	public Map<String, Object> createNote(String slug, String content, int owner){
 		Map<String, Object> note = new HashMap<String, Object>();
 		
 		note.put("url", slug);
-		note.put("content", "");
+		note.put("content", content);
 		note.put("owner", owner);
 		note.put("create_at", new Timestamp( System.currentTimeMillis()));
 		
 		this.noteMapper.add(note);
 		
 		note.put("id", ((Long)note.get("id")).intValue());
+		
+		return note;
+	}
+	
+	public Map<String, Object> update(Map<String, Object> note){
+		note.put("update_at", new Timestamp( System.currentTimeMillis()));
+		
+		this.noteMapper.update(note);
 		
 		return note;
 	}

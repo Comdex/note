@@ -19,4 +19,5 @@ public interface NoteMapper {
     public List<Map<String, Object>> selectAll();
 
 	public Map<String, Object> selectNoteByAlias(String alias);
+	public int update(Map<String, Object> note);
 }

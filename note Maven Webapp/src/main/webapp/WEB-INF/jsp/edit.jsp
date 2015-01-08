@@ -60,7 +60,11 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 	</nav>
 
 	<div class="container">
-		<textarea class="form-control" rows="20">${note.content }</textarea>
+		<form  action="api/1.0/${note.url }" method="post" id="form">
+			<textarea class="form-control" rows="20" name="content">${note.content }</textarea>
+			<input type="text" value="txt" name="language" />
+			<button type="submit">提交</button>
+		</form>
 	</div><!-- /.container -->
 
 	<footer>
@@ -86,6 +90,12 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 		(function($) {
 			$(function() {
 
+				$("#form").submit(function(){
+					$.post("api/1.0/${note.url}",$(this).serializeArray(),function(response){
+						alert(response);
+					});
+					return false;
+				});
 				$('#save').on('click', function() {
 					var $btn = $(this).button('loading');
 					setTimeout(function(){
