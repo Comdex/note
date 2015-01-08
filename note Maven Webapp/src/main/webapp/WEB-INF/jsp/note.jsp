@@ -1,5 +1,5 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%><%@
+taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
@@ -13,6 +13,7 @@
 <title>${note.title } - Honey Note</title>
 <link rel="stylesheet" href="static/css/bootstrap.min.css">
 <link rel="stylesheet" href="static/css/style.css">
+
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -42,7 +43,14 @@
 	</nav>
 
 	<div class="container">
-		${note.content }
+		<c:choose>
+			<c:when test="${note.language eq 'markdown' }">
+				${note.content }
+			</c:when>
+			<c:otherwise>
+				<pre class="plain">${note.content }</pre>
+			</c:otherwise>
+		</c:choose>
 	</div><!-- /.container -->
 
 	<footer>

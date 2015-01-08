@@ -1,5 +1,5 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%><%@
+taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
@@ -52,7 +52,7 @@
 						</label>
 					</div>
 					<div class="form-group">
-						<a class="btn btn-default"><span class="glyphicon glyphicon-qrcode"></span></a>
+						<a href="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=https://pad.wf/${note.url }&chld=q|2" class="btn btn-default" id="qr"><span class="glyphicon glyphicon-qrcode"></span></a>
 					</div>
 				</form>
 			</div><!--/.nav-collapse -->

@@ -85,12 +85,12 @@ public class NoteService {
 		if( note != null ){
 			
 			String content = (String) note.get("content");
-			
 			note.put("raw", content);
 			
-			PegDownProcessor processor = new PegDownProcessor();
-			
-			note.put("content", processor.markdownToHtml( content ));
+			if( "markdown".equals( note.get("language"))){
+				PegDownProcessor processor = new PegDownProcessor();
+				note.put("content", processor.markdownToHtml( content ));
+			}
 		}
 		
 		return note;

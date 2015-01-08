@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.honeyhaw.note.mvc.service.NoteService;
 import com.honeyhaw.note.mvc.service.UserService;
@@ -26,7 +27,7 @@ public class Web{
 	@Resource
 	private UserService userService;
 	
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public void create(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		String slug = noteService.createUniqueSlug();
@@ -34,7 +35,7 @@ public class Web{
 		response.sendRedirect(slug);
 	}
 
-	@RequestMapping(value = "{url:\\w{2,8}}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{url:\\w{2,8}}", method = RequestMethod.GET)
 	public String view(HttpServletRequest request, HttpServletResponse response,@CookieValue(required=false) String username, @CookieValue(required=false) String password,
 			@PathVariable String url) throws Exception {
 		
@@ -84,5 +85,13 @@ public class Web{
 			
 			return "note";
 		}
+	}
+	
+	@RequestMapping(value = "/{url:\\w{2,8}}.txt", method = RequestMethod.GET, produces = "text/plain; charset=UTF-8")
+	public @ResponseBody
+	String text(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable String url) throws Exception {
+		Map<String, Object> note = noteService.queryByURL(url);
+		return note.get("content") + "";
 	}
 }
