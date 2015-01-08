@@ -79,7 +79,7 @@ public class NoteService {
 		this.noteMapper = noteMapper;
 	}
 	
-	public Map<String, Object>  queryByURL( String url){
+	public Map<String, Object>  queryByURL( String url, boolean forceMarkdown){
 		Map<String, Object> note = noteMapper.queryByURL(url);
 		
 		if( note != null ){
@@ -87,12 +87,16 @@ public class NoteService {
 			String content = (String) note.get("content");
 			note.put("raw", content);
 			
-			if( "markdown".equals( note.get("language"))){
+			if( forceMarkdown || "markdown".equals( note.get("language"))){
 				PegDownProcessor processor = new PegDownProcessor();
 				note.put("content", processor.markdownToHtml( content ));
 			}
 		}
 		
 		return note;
+	}
+	
+	public Map<String, Object>  queryByURL( String url){
+		return queryByURL(url, false);
 	}
 }

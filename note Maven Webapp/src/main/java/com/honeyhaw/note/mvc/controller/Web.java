@@ -94,4 +94,12 @@ public class Web{
 		Map<String, Object> note = noteService.queryByURL(url);
 		return note.get("content") + "";
 	}
+	
+	@RequestMapping(value = "/{url:\\w{2,8}}.md", method = RequestMethod.GET, produces = "text/plain; charset=UTF-8")
+	public String markdown(HttpServletRequest request, HttpServletResponse response,
+			@PathVariable String url) throws Exception {
+		Map<String, Object> note = noteService.queryByURL(url, true);
+		request.setAttribute("note", note);
+		return "html";
+	}
 }
