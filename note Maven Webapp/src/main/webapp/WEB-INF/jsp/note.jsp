@@ -91,17 +91,10 @@ footer>.container {
 	
 	<script src="static/js/jquery-2.1.1.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
+	<script src="static/js/common.js"></script>
 	<script>
 		(function($) {
 			$(function() {
-				
-				$('#qr').each(function(){
-					$(this).data("content",'<img alt="" src="' + $(this).attr("href")+'" height="250" width="250" />');
-				}).popover({
-					html:true,
-					trigger: "hover",
-					placement: "bottom"
-				});
 
 				$('#save').on('click', function() {
 					var $btn = $(this).button('loading');
