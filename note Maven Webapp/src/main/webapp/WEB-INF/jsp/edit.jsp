@@ -12,36 +12,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>${note.title } - Honey Note</title>
 <link rel="stylesheet" href="static/css/bootstrap.min.css">
-<style>
-html {
-	position: relative;
-	min-height: 100%;
-}
-
-body {
-	/* Margin bottom by footer height */
-	margin-bottom: 60px;
-	padding-top: 70px;
-}
-
-footer {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	background-color: #f5f5f5;
-}
-
-footer>.container {
-	padding-right: 15px;
-	padding-left: 15px;
-}
-
-.container .text-muted {
-  margin: 20px 0;
-}
-</style>
+<link rel="stylesheet" href="static/css/style.css">
 </head>
-
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 		<div class="container">
