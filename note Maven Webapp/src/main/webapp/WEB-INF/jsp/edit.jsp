@@ -88,9 +88,10 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 				/ <a href="about" title=" Honey Note 是什么">About</a>
 				/ <a href="privacy" title="隐私和使用条款">Privacy</a>
 				/ <a rel="external" href="https://me.alipay.com/dallaslu"
-					title="通过支付宝捐助">Donate</a> <span>Powered by <a
-					href="https://honeyhaw.com">Honey Haw</a> Hosted on <a
-					href="http://www.linode.com/?r=ae55e4ac259593b7f0698627838194ba4451a878">Linode</a></span>
+					title="通过支付宝捐助">Donate</a>
+				<span class="hidden-xs">Powered by
+					<a href="https://honeyhaw.com">Honey Haw</a> 
+					Hosted on <a href="http://www.linode.com/?r=ae55e4ac259593b7f0698627838194ba4451a878">Linode</a></span>
 			</p>
 		</div><!-- /.container -->
 	</footer>
