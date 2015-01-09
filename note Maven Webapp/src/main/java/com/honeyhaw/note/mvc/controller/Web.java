@@ -82,7 +82,7 @@ public class Web{
 		if( editable ){
 			return "edit";
 		}else{
-			
+			request.setAttribute("now", System.currentTimeMillis());
 			return "note";
 		}
 	}

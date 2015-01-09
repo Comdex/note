@@ -35,16 +35,25 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 				<ul class="nav navbar-nav navbar-right">
 					<%@ include file="includes/qr.jsp" %>
 					<li class="navbar-container">
-						<input type="checkbox" name="language"
-							data-label-text="Auto Refresh" data-size="normal"
-							autocomplete="off" data-label-width="83">
+						<c:choose>
+							<c:when test="${note.update_at ne null && note.update_at.time lt now}">
+								<input type="checkbox" id="refresh-switcher"
+									data-label-text="Auto Refresh" data-size="normal"
+									checked="checked" autocomplete="off" data-label-width="83">
+							</c:when>
+							<c:otherwise>
+								<input type="checkbox" id="refresh-switcher"
+									data-label-text="Auto Refresh" data-size="normal"
+									autocomplete="off" data-label-width="83">
+							</c:otherwise>
+						</c:choose>
 					</li>
 					</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</nav>
 
-	<div class="container">
+	<div class="container" id="note">
 		<c:choose>
 			<c:when test="${note.language eq 'markdown' }">
 				${note.content }
@@ -64,6 +73,37 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 	<script>
 		(function($) {
 			$(function() {
+				var lastUpdateAt = ${note.update_at eq null ? 0 : note.update_at.time};
+				var delay = 5000; //ms
+				var $note = $('#note');
+				var timer = setTimeout(checkNote,delay);
+				
+				$(document).ajaxStart(function() {
+					$('#submit').button('loading');
+				}).ajaxComplete(function() {
+					$('#submit').button('complete');
+					clearTimeout(timer);
+					timer = setTimeout(checkNote, delay);
+				});
+				
+				function checkNote(){
+					if( !$('#refresh-switcher').is(':checked')){
+						clearTimeout(timer);
+						setTimeout(checkNote, delay);
+						return;
+					}
+					$.getJSON('api/1.0/${note.url}.json', function(json){
+						if( json.update_at && json.update_at > lastUpdateAt ){
+							lastUpdateAt = json.update_at;
+							if( json.language == 'markdown' ){
+								$note.html(json.content);
+							}else{
+								var $pre = $('<pre class="plain"></pre>').append(json.content);
+								$note.html($pre.wrap('<div>').parent().html());
+							}
+						}
+					});
+				}
 			});
 		})(jQuery);
 	</script>
