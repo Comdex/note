@@ -32,12 +32,9 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 				<ul class="nav navbar-nav">
 					<li><a href="."><span class="glyphicon glyphicon-edit"></span> Write</a></li>
 				</ul>
-				<form class="navbar-form navbar-right" role="search"
-					action="search.html">
-					<div class="form-group">
-						<a href="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=https://pad.wf/${note.url }&chld=q|2" class="btn btn-default" id="qr"><span class="glyphicon glyphicon-qrcode"></span></a>
-					</div>
-				</form>
+				<ul class="nav navbar-nav navbar-right">
+						<%@ include file="includes/qr.jsp" %>
+					</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</nav>

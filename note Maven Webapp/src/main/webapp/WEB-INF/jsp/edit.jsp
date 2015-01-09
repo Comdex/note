@@ -1,5 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%><%@
-taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
+taglib
+	prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://"
 			+ request.getServerName() + ":" + request.getServerPort()
@@ -9,78 +11,86 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>${note.title } - Honey Note</title>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>${note.title }- Honey Note</title>
 <link rel="stylesheet" href="static/css/bootstrap.min.css">
 <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
-	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href=".">Honey Note <sup>Alpha</sup></a>
+	<form action=".">
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed"
+						data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+						aria-controls="navbar">
+						<span class="sr-only">Toggle navigation</span> <span
+							class="icon-bar"></span> <span class="icon-bar"></span> <span
+							class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href=".">Honey Note <sup>Alpha</sup></a>
+				</div>
+				<div id="navbar" class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="."><span
+								class="glyphicon glyphicon-edit"></span> Write</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="navbar-form">
+							<div class="input-group">
+								<input type="text" class="form-control"
+									placeholder="${note.url }" value="${note.url }"> <span
+									class="input-group-btn">
+									<button class="btn btn-default" type="submit">Go!</button>
+								</span>
+							</div> <!-- /input-group -->
+						</li>
+						<li class="navbar-form">
+							<div class="form-group">
+								<c:choose>
+									<c:when test="${note.language eq 'markdown' }">
+										<label class="radio-inline"> <input type="radio"
+											name="language" id="language-plain" value="txt">
+											Plain
+										</label>
+										<label class="radio-inline"> <input type="radio"
+											checked="checked" name="language" id="language-markdown"
+											value="markdown"> Markdown
+										</label>
+									</c:when>
+									<c:otherwise>
+										<label class="radio-inline"> <input type="radio"
+											checked="checked" name="language" id="language-plain"
+											value="txt"> Plain
+										</label>
+										<label class="radio-inline"> <input type="radio"
+											name="language" id="language-markdown" value="markdown">
+											Markdown
+										</label>
+									</c:otherwise>
+								</c:choose>
+							</div>
+						</li>
+						<%@ include file="includes/qr.jsp" %>
+					</ul>
+				</div>
+				<!--/.nav-collapse -->
 			</div>
-			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a href="."><span class="glyphicon glyphicon-edit"></span> Write</a></li>
-				</ul>
-				<form class="navbar-form navbar-right" role="search"
-					action=".">
-					<div class="form-group">
-						<div class="input-group">
-							<input type="text" class="form-control" placeholder="${note.url }" value="${note.url }">
-							<span class="input-group-btn">
-								<button class="btn btn-default" type="submit">Go!</button>
-							</span>
-						</div>
-						<!-- /input-group -->
-					</div>
-					<div class="form-group">
-						<c:choose>
-							<c:when test="${note.language eq 'markdown' }">
-								<label class="radio-inline"> <input type="radio"
-									name="language" id="language-plain" value="txt"> Plain
-								</label>
-								<label class="radio-inline"> <input type="radio" checked="checked"
-									name="language" id="language-markdown" value="markdown">
-									Markdown
-								</label>
-							</c:when>
-							<c:otherwise>
-								<label class="radio-inline"> <input type="radio" checked="checked"
-									name="language" id="language-plain" value="txt"> Plain
-								</label>
-								<label class="radio-inline"> <input type="radio"
-									name="language" id="language-markdown" value="markdown">
-									Markdown
-								</label>
-							</c:otherwise>
-						</c:choose>
-					</div>
-					<div class="form-group">
-						<a href="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=https://pad.wf/${note.url }&chld=q|2" class="btn btn-default" id="qr"><span class="glyphicon glyphicon-qrcode"></span></a>
-					</div>
-				</form>
-			</div><!--/.nav-collapse -->
+		</nav>
+
+		<div class="container">
+			<textarea class="form-control" rows="20" name="content" id="content"
+				autofocus="autofocus">${note.content }</textarea>
+			<button type="submit" id="submit" class="btn btn-default"
+				data-loading-text="正在保存……" data-complete-text="已经保存">保存</button>
 		</div>
-	</nav>
+		<!-- /.container -->
 
-	<div class="container">
-		<form  action="${note.url }" method="post" id="form">
-			<textarea class="form-control" rows="20" name="content" id="content" autofocus="autofocus">${note.content }</textarea>
-				<button type="submit" id="submit" class="btn btn-default" data-loading-text="正在保存……" data-complete-text="已经保存">保存</button>
-		</form>
-	</div><!-- /.container -->
+	</form>
 
-	<%@ include file="includes/footer.jsp" %>
-	
+	<%@ include file="includes/footer.jsp"%>
+
 	<script src="static/js/jquery-2.1.1.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
 	<script src="static/js/common.js"></script>
@@ -90,47 +100,49 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 				var lastContent = '${note.content}';
 				var lastSaveAt = 0;
 				var delay = 1000; //ms
-				
+
 				$content = $('#content');
-				
+
 				var timer = setTimeout(saveContent, delay);
-				
-				$("#form").submit(function(){
-					$.post("api/1.0/${note.url}",$(this).serializeArray(),function(response){
-						alert(response);
-					});
-					return false;
-				});
-				
-				$(document).ajaxStart(function(){
+
+				$("#form").submit(
+						function() {
+							$.post("api/1.0/${note.url}", $(this)
+									.serializeArray(), function(response) {
+								alert(response);
+							});
+							return false;
+						});
+
+				$(document).ajaxStart(function() {
 					$('#submit').button('loading');
-				}).ajaxComplete(function(){
+				}).ajaxComplete(function() {
 					$('#submit').button('complete');
 					clearTimeout(timer);
-					timer = setTimeout(saveContent,delay);
+					timer = setTimeout(saveContent, delay);
 				});
-				
-				function saveContent(){
+
+				function saveContent() {
 					var content = $content.val();
-					if( lastContent === content ){
+					if (lastContent === content) {
 						clearTimeout(timer);
 						timer = setTimeout(saveContent, delay);
 						return;
 					}
 					$.ajax({
-						url:'api/1.0/${note.url}',
-						type:'POST',
-						dataType:'json',
-						data:$('#form').serializeArray(),
-						success:function(response){
+						url : 'api/1.0/${note.url}',
+						type : 'POST',
+						dataType : 'json',
+						data : $('#form').serializeArray(),
+						success : function(response) {
 						},
-						error:function(response){
+						error : function(response) {
 							alert("error");
 						},
-						complete: function(){
-							
+						complete : function() {
+
 							lastContent = content;
-							lastSaveAt = (+ new Date);
+							lastSaveAt = (+new Date);
 						}
 					});
 				}
