@@ -46,6 +46,7 @@ taglib
 									<button class="btn btn-default" type="submit">Go!</button>
 								</span>
 						</li> -->
+						<%@ include file="includes/qr.jsp" %>
 						<li class="navbar-container">
 								<c:choose>
 									<c:when test="${note.language eq 'markdown' }">
@@ -56,7 +57,6 @@ taglib
 									</c:otherwise>
 								</c:choose>
 						</li>
-						<%@ include file="includes/qr.jsp" %>
 					</ul>
 				</div>
 				<!--/.nav-collapse -->
