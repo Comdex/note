@@ -38,14 +38,14 @@ taglib
 								class="glyphicon glyphicon-edit"></span> Write</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li class="navbar-container">
+						<!-- <li class="navbar-container">
 							<div class="input-group">
 								<input type="text" class="form-control"
 									placeholder="${note.url }" value="${note.url }"> <span
 									class="input-group-btn">
 									<button class="btn btn-default" type="submit">Go!</button>
 								</span>
-						</li>
+						</li> -->
 						<li class="navbar-container">
 								<c:choose>
 									<c:when test="${note.language eq 'markdown' }">
