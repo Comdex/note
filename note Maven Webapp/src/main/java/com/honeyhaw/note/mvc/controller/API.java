@@ -35,7 +35,7 @@ public class API {
 	Map<String, Object> put(HttpServletRequest request,
 			HttpServletResponse response, @PathVariable String url,
 			@RequestParam(required = false, defaultValue="0") int id,
-			@RequestParam String content,
+			@RequestParam(required= false) String content,
 			@RequestParam(required = false) String language,
 			@CookieValue(required = false) String username,
 			@CookieValue(required = false) String password) throws Exception {

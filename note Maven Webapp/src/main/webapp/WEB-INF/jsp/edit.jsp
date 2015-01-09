@@ -73,9 +73,9 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 	</nav>
 
 	<div class="container">
-		<form  action="api/1.0/${note.url }" method="post" id="form">
-			<textarea class="form-control" rows="20" name="content">${note.content }</textarea>
-			<button type="submit">提交</button>
+		<form  action="${note.url }" method="post" id="form">
+			<textarea class="form-control" rows="20" name="content" id="content" autofocus="autofocus">${note.content }</textarea>
+				<button type="submit" id="submit" class="btn btn-default" data-loading-text="正在保存……" data-complete-text="已经保存">保存</button>
 		</form>
 	</div><!-- /.container -->
 
@@ -87,19 +87,53 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 	<script>
 		(function($) {
 			$(function() {
-
+				var lastContent = '${note.content}';
+				var lastSaveAt = 0;
+				var delay = 1000; //ms
+				
+				$content = $('#content');
+				
+				var timer = setTimeout(saveContent, delay);
+				
 				$("#form").submit(function(){
 					$.post("api/1.0/${note.url}",$(this).serializeArray(),function(response){
 						alert(response);
 					});
 					return false;
 				});
-				$('#save').on('click', function() {
-					var $btn = $(this).button('loading');
-					setTimeout(function(){
-						$btn.button('reset');
-					},1000);
+				
+				$(document).ajaxStart(function(){
+					$('#submit').button('loading');
+				}).ajaxComplete(function(){
+					$('#submit').button('complete');
+					clearTimeout(timer);
+					timer = setTimeout(saveContent,delay);
 				});
+				
+				function saveContent(){
+					var content = $content.val();
+					if( lastContent === content ){
+						clearTimeout(timer);
+						timer = setTimeout(saveContent, delay);
+						return;
+					}
+					$.ajax({
+						url:'api/1.0/${note.url}',
+						type:'POST',
+						dataType:'json',
+						data:$('#form').serializeArray(),
+						success:function(response){
+						},
+						error:function(response){
+							alert("error");
+						},
+						complete: function(){
+							
+							lastContent = content;
+							lastSaveAt = (+ new Date);
+						}
+					});
+				}
 			});
 		})(jQuery);
 	</script>
