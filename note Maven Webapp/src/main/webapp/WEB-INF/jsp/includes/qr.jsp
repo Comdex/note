@@ -6,6 +6,6 @@
 		class="visible-xs-inline">QR code </span><span class="caret"></span></a>
 	<ul class="dropdown-menu" role="menu">
 		<li><img alt=""
-			src="https://chart.pad.wf/chart?cht=qr&chs=250x250&chl=https://pad.wf/${note.url }&chld=q|2"
+			src="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=https://pad.wf/${note.url }&chld=q|2"
 			class="center-block" /></li>
 	</ul></li>
