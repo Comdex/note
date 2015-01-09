@@ -32,10 +32,10 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 					<li class="active"><a href="."><span class="glyphicon glyphicon-edit"></span> Write</a></li>
 				</ul>
 				<form class="navbar-form navbar-right" role="search"
-					action="search.html">
+					action=".">
 					<div class="form-group">
 						<div class="input-group">
-							<input type="text" class="form-control" placeholder="${note.url }">
+							<input type="text" class="form-control" placeholder="${note.url }" value="${note.url }">
 							<span class="input-group-btn">
 								<button class="btn btn-default" type="submit">Go!</button>
 							</span>
@@ -43,13 +43,26 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 						<!-- /input-group -->
 					</div>
 					<div class="form-group">
-						<label class="radio-inline"> <input type="radio"
-							name="language" id="inlineRadio1" value="plain">
-							Plain
-						</label> <label class="radio-inline"> <input type="radio"
-							name="language" id="inlineRadio2" value="markdown">
-							Markdown
-						</label>
+						<c:choose>
+							<c:when test="${note.language eq 'markdown' }">
+								<label class="radio-inline"> <input type="radio"
+									name="language" id="language-plain" value="txt"> Plain
+								</label>
+								<label class="radio-inline"> <input type="radio" checked="checked"
+									name="language" id="language-markdown" value="markdown">
+									Markdown
+								</label>
+							</c:when>
+							<c:otherwise>
+								<label class="radio-inline"> <input type="radio" checked="checked"
+									name="language" id="language-plain" value="txt"> Plain
+								</label>
+								<label class="radio-inline"> <input type="radio"
+									name="language" id="language-markdown" value="markdown">
+									Markdown
+								</label>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<div class="form-group">
 						<a href="https://chart.googleapis.com/chart?cht=qr&chs=250x250&chl=https://pad.wf/${note.url }&chld=q|2" class="btn btn-default" id="qr"><span class="glyphicon glyphicon-qrcode"></span></a>
@@ -62,7 +75,6 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 	<div class="container">
 		<form  action="api/1.0/${note.url }" method="post" id="form">
 			<textarea class="form-control" rows="20" name="content">${note.content }</textarea>
-			<input type="text" value="txt" name="language" />
 			<button type="submit">提交</button>
 		</form>
 	</div><!-- /.container -->

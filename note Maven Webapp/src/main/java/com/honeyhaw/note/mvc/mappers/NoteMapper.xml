@@ -39,8 +39,23 @@
 	
 	<!-- 修改记录 -->
 	<update id="update" parameterType="java.util.Map">
-		update note set title =
-		#{title},content = #{content},owner = #{owner}, language = #{language}
+		update note set
+		<if test="title!=null">
+			title = #{title},
+		</if>
+		<if test="content!=null">
+			content = #{content},
+		</if>
+		<if test="url!=null">
+			url = #{url},
+		</if>
+		<if test="owner!=null">
+			owner = #{owner},
+		</if>
+		<if test="language!=null">
+			language = #{language},
+		</if>
+		update_at = #{update_at}
 		where id = #{id}
 	</update>
 	
@@ -51,8 +66,7 @@
 	<!-- 删除记录 -->
 	<delete id="deleteNote" parameterType="int">
 		delete from note where
-		id =
-		#{id}
+		id = #{id}
 	</delete>
 
 </mapper>  
