@@ -19,7 +19,7 @@ taglib
 <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
-	<form action=".">
+	<form action="." id="form" method="post">
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 			<div class="container">
 				<div class="navbar-header">
@@ -49,10 +49,10 @@ taglib
 						<li class="navbar-container">
 								<c:choose>
 									<c:when test="${note.language eq 'markdown' }">
-										<input type="checkbox" name="language"  data-label-text="Markdown" data-size="normal" checked="checked" autocomplete="off">
+										<input type="checkbox" name="language" value="markdown"  data-label-text="Markdown" data-size="normal" checked="checked" autocomplete="off">
 									</c:when>
 									<c:otherwise>
-										<input type="checkbox" name="language"  data-label-text="Markdown" data-size="normal" autocomplete="off">
+										<input type="checkbox" name="language" value="markdown"  data-label-text="Markdown" data-size="normal" autocomplete="off">
 									</c:otherwise>
 								</c:choose>
 						</li>
@@ -66,8 +66,9 @@ taglib
 		<div class="container">
 			<textarea class="form-control" rows="20" name="content" id="content"
 				autofocus="autofocus" >${note.content }</textarea>
-			<button type="submit" id="submit" class="btn btn-default"
-				data-loading-text="正在保存……" data-complete-text="已经保存">保存</button>
+			<noscript>
+			<p><button type="submit" id="submit" class="btn btn-default"
+				data-loading-text="正在保存……" data-complete-text="已经保存">保存</button></p></noscript>
 		</div>
 		<!-- /.container -->
 
@@ -82,13 +83,13 @@ taglib
 	<script>
 		(function($) {
 			$(function() {
-				var lastContent = '${note.content}';
+				var lastForm = '';
 				var lastSaveAt = 0;
 				var delay = 1000; //ms
 
 				$content = $('#content');
 
-				var timer = setTimeout(saveContent, delay);
+				var timer = setTimeout(saveData, delay);
 
 				$("#form").submit(
 						function() {
@@ -104,29 +105,30 @@ taglib
 				}).ajaxComplete(function() {
 					$('#submit').button('complete');
 					clearTimeout(timer);
-					timer = setTimeout(saveContent, delay);
+					timer = setTimeout(saveData, delay);
 				});
 
-				function saveContent() {
-					var content = $content.val();
-					if (lastContent === content) {
+				function saveData() {
+					var currentData = $('#form').serializeArray();
+					var currentForm = $('#form').serialize();
+					
+					if (lastForm === currentForm) {
 						clearTimeout(timer);
-						timer = setTimeout(saveContent, delay);
+						timer = setTimeout(saveData, delay);
 						return;
 					}
 					$.ajax({
 						url : 'api/1.0/${note.url}',
 						type : 'POST',
 						dataType : 'json',
-						data : $('#form').serializeArray(),
+						data : currentData,
 						success : function(response) {
 						},
 						error : function(response) {
 							alert("error");
 						},
 						complete : function() {
-
-							lastContent = content;
+							lastForm = currentForm;
 							lastSaveAt = (+new Date);
 						}
 					});

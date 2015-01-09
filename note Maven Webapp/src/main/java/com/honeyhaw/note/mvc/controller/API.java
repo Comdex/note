@@ -36,7 +36,7 @@ public class API {
 			HttpServletResponse response, @PathVariable String url,
 			@RequestParam(required = false, defaultValue="0") int id,
 			@RequestParam(required= false) String content,
-			@RequestParam(required = false) String language,
+			@RequestParam(required = false, defaultValue="txt") String language,
 			@CookieValue(required = false) String username,
 			@CookieValue(required = false) String password) throws Exception {
 		Map<String, Object> note = noteService.queryByURL(url);
