@@ -12,8 +12,8 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>${note.title } - Honey Note</title>
 <link rel="stylesheet" href="static/css/bootstrap.min.css">
+<link rel="stylesheet" href="static/css/bootstrap-switch.min.css">
 <link rel="stylesheet" href="static/css/style.css">
-
 </head>
 <body>
 	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -33,7 +33,12 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 					<li><a href="."><span class="glyphicon glyphicon-edit"></span> Write</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-						<%@ include file="includes/qr.jsp" %>
+					<%@ include file="includes/qr.jsp" %>
+					<li class="navbar-container">
+						<input type="checkbox" name="language"
+							data-label-text="Auto Refresh" data-size="normal"
+							autocomplete="off" data-label-width="83">
+					</li>
 					</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -54,6 +59,7 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 	
 	<script src="static/js/jquery-2.1.1.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
+	<script src="static/js/bootstrap-switch.min.js"></script>
 	<script src="static/js/common.js"></script>
 	<script>
 		(function($) {

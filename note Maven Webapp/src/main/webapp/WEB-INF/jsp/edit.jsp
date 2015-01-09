@@ -15,6 +15,7 @@ taglib
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>${note.title }- Honey Note</title>
 <link rel="stylesheet" href="static/css/bootstrap.min.css">
+<link rel="stylesheet" href="static/css/bootstrap-switch.min.css">
 <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
@@ -37,40 +38,23 @@ taglib
 								class="glyphicon glyphicon-edit"></span> Write</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
-						<li class="navbar-form">
+						<li class="navbar-container">
 							<div class="input-group">
 								<input type="text" class="form-control"
 									placeholder="${note.url }" value="${note.url }"> <span
 									class="input-group-btn">
 									<button class="btn btn-default" type="submit">Go!</button>
 								</span>
-							</div> <!-- /input-group -->
 						</li>
-						<li class="navbar-form">
-							<div class="form-group">
+						<li class="navbar-container">
 								<c:choose>
 									<c:when test="${note.language eq 'markdown' }">
-										<label class="radio-inline"> <input type="radio"
-											name="language" id="language-plain" value="txt">
-											Plain
-										</label>
-										<label class="radio-inline"> <input type="radio"
-											checked="checked" name="language" id="language-markdown"
-											value="markdown"> Markdown
-										</label>
+										<input type="checkbox" name="language"  data-label-text="Markdown" data-size="normal" checked="checked" autocomplete="off">
 									</c:when>
 									<c:otherwise>
-										<label class="radio-inline"> <input type="radio"
-											checked="checked" name="language" id="language-plain"
-											value="txt"> Plain
-										</label>
-										<label class="radio-inline"> <input type="radio"
-											name="language" id="language-markdown" value="markdown">
-											Markdown
-										</label>
+										<input type="checkbox" name="language"  data-label-text="Markdown" data-size="normal" autocomplete="off">
 									</c:otherwise>
 								</c:choose>
-							</div>
 						</li>
 						<%@ include file="includes/qr.jsp" %>
 					</ul>
@@ -81,7 +65,7 @@ taglib
 
 		<div class="container">
 			<textarea class="form-control" rows="20" name="content" id="content"
-				autofocus="autofocus">${note.content }</textarea>
+				autofocus="autofocus" >${note.content }</textarea>
 			<button type="submit" id="submit" class="btn btn-default"
 				data-loading-text="正在保存……" data-complete-text="已经保存">保存</button>
 		</div>
@@ -93,6 +77,7 @@ taglib
 
 	<script src="static/js/jquery-2.1.1.min.js"></script>
 	<script src="static/js/bootstrap.min.js"></script>
+	<script src="static/js/bootstrap-switch.min.js"></script>
 	<script src="static/js/common.js"></script>
 	<script>
 		(function($) {
