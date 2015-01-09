@@ -36,7 +36,7 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 					<%@ include file="includes/qr.jsp" %>
 					<li class="navbar-container">
 						<c:choose>
-							<c:when test="${note.update_at ne null && note.update_at.time gt now - 3600}">
+							<c:when test="${note.update_at ne null && note.update_at.time gt now - 3600 * 1000}">
 								<input type="checkbox" id="refresh-switcher"
 									data-label-text="Auto Refresh" data-size="normal"
 									checked="checked" autocomplete="off" data-label-width="83">
