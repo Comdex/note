@@ -61,19 +61,6 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 	<script>
 		(function($) {
 			$(function() {
-
-				$('#save').on('click', function() {
-					var $btn = $(this).button('loading');
-					setTimeout(function(){
-						$btn.button('reset');
-					},1000);
-				});
-				
-				$.get('api/1.0/test.json'
-						,function(json){
-							alert(json);
-					},'json');
-
 			});
 		})(jQuery);
 	</script>
