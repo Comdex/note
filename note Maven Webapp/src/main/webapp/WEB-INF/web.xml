@@ -4,15 +4,15 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	id="note" version="3.0">
 	<display-name>Honey Note Web Application</display-name>
+
+	<error-page>
+        <exception-type>java.lang.Exception</exception-type>
+		<location>/WEB-INF/jsp/error/error.jsp</location>
+	</error-page>
 	
 	<error-page>
 		<error-code>404</error-code>
 		<location>/WEB-INF/jsp/error/404.jsp</location>
-	</error-page>
-	
-	<error-page>
-        <exception-type>java.lang.Exception</exception-type>
-		<location>/WEB-INF/jsp/error/error.jsp</location>
 	</error-page>
 	
 	<context-param>
