@@ -65,7 +65,7 @@ taglib
 
 		<div class="container">
 			<textarea class="form-control" rows="20" name="content" id="content"
-				autofocus="autofocus" >${note.content }</textarea>
+				autofocus="autofocus"  placeholder="Paste text or write something…">${note.content }</textarea>
 			<noscript>
 			<p><button type="submit" id="submit" class="btn btn-default"
 				data-loading-text="正在保存……" data-complete-text="已经保存">保存</button></p></noscript>

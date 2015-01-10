@@ -38,3 +38,15 @@ pre.plain {
  .navbar-container{
  	margin:8px 15px;
  }
+ 
+  /*
+ textarea::-webkit-input-placeholder:after{
+  display:block;
+  content:"line@ \A line#";
+  color:red;
+}
+
+textarea::-moz-placeholder:after{
+  content:"line@ \A line#";
+  color:red;
+}*/
