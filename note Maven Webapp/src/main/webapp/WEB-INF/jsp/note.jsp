@@ -77,6 +77,8 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 				var delay = 5000; //ms
 				var $note = $('#note');
 				var timer = setTimeout(checkNote,delay);
+				var name = "Honey Note";
+				var description = "paste and share";
 				
 				$(document).ajaxStart(function() {
 					$('#submit').button('loading');
@@ -100,6 +102,11 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 							}else{
 								var $pre = $('<pre class="plain"></pre>').append(json.content);
 								$note.html($pre.wrap('<div>').parent().html());
+							}
+							if ( json.title){
+								document.title = json.title+' - '+ name;
+							}else{
+								document.title = name + ' - ' + description;;
 							}
 						}
 					});

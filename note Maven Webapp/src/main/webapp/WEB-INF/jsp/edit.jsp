@@ -86,6 +86,8 @@ taglib
 				var lastForm = '';
 				var lastSaveAt = 0;
 				var delay = 1000; //ms
+				var name = "Honey Note";
+				var description = "paste and share";
 
 				$content = $('#content');
 
@@ -122,10 +124,15 @@ taglib
 						type : 'POST',
 						dataType : 'json',
 						data : currentData,
-						success : function(response) {
+						success : function(json) {
+							if ( json.title){
+								document.title = json.title+' - '+ name;
+							}else{
+								document.title = name + ' - ' + description;;
+							}
 						},
 						error : function(response) {
-							alert("error");
+							alert("Saved failed, please copy your text and save it in another place now!");
 						},
 						complete : function() {
 							lastForm = currentForm;

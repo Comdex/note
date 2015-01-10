@@ -1,5 +1,6 @@
 package com.honeyhaw.note.mvc.service;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.HtmlUtils;
 
 import com.honeyhaw.note.mvc.mappers.NoteMapper;
+import com.honeyhaw.note.mvc.utils.StringUtils;
 
 @Service
 public class NoteService {
@@ -58,6 +60,8 @@ public class NoteService {
 		note.put("owner", owner);
 		note.put("create_at", new Timestamp( System.currentTimeMillis()));
 		
+		genTitle(note);
+		
 		this.noteMapper.add(note);
 		
 		note.put("id", ((Long)note.get("id")).intValue());
@@ -68,12 +72,28 @@ public class NoteService {
 	public Map<String, Object> update(Map<String, Object> note){
 		note.put("update_at", new Timestamp( System.currentTimeMillis()));
 		note.put("content", HtmlUtils.htmlEscape((String)note.get("content")));
-
+		genTitle(note);
 		this.noteMapper.update(note);
 		
 		return note;
 	}
 	
+	private void genTitle(Map<String, Object> note) {
+		if( note!= null  ){
+			String title = "Empty";
+			if( note.get("content") != null && !"".equals(note.get("content")) ){
+				String content = (String) note.get("content");
+				String article = content.replaceAll("^(?:\\r\\n)+", "");
+				String firsLine = article.replaceAll("\\r\\n.*", " ");
+				try {
+					title = StringUtils.subStringCharacter(firsLine, 30);
+				} catch (UnsupportedEncodingException e) {
+				}
+			}
+			note.put("title", title);
+		}
+	}
+
 	/**
 	 * 
 	 * @param length
@@ -101,6 +121,10 @@ public class NoteService {
 			
 			String content = (String) note.get("content");
 			note.put("raw", content);
+			
+			if( note.get("title") == null ){
+				genTitle(note);
+			}
 			
 			if( forceMarkdown || "markdown".equals( note.get("language"))){
 				PegDownProcessor processor = new PegDownProcessor();
