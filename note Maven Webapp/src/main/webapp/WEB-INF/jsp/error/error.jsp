@@ -10,7 +10,7 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Error - Honey Note</title>
+<title>404 - Honey Note</title>
 <link rel="stylesheet" href="static/css/bootstrap.min.css">
 <link rel="stylesheet" href="static/css/style.css">
 
@@ -37,8 +37,8 @@ taglib prefix="c"   uri="http://java.sun.com/jsp/jstl/core"%><%
 	</nav>
 
 	<div class="container">
-		<h1>Sorry</h1>
-		<p>There is a problem with this page.</p>
+		<h1>404</h1>
+		<p>Here is nothing.</p>
 	</div><!-- /.container -->
 
 	<%@ include file="../includes/footer.jsp" %>

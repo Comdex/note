@@ -10,6 +10,11 @@
 		<location>/WEB-INF/jsp/error/404.jsp</location>
 	</error-page>
 	
+	<error-page>
+        <exception-type>java.lang.Exception</exception-type>
+		<location>/WEB-INF/jsp/error/error.jsp</location>
+	</error-page>
+	
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/classes/context-application.xml</param-value>
