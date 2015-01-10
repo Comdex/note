@@ -7,8 +7,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang3.RandomUtils;
+import org.apache.commons.lang3.StringEscapeUtils;
 import org.pegdown.PegDownProcessor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import com.honeyhaw.note.mvc.mappers.NoteMapper;
 
@@ -52,7 +54,7 @@ public class NoteService {
 		Map<String, Object> note = new HashMap<String, Object>();
 		
 		note.put("url", slug);
-		note.put("content", content);
+		note.put("content", HtmlUtils.htmlEscape(content));
 		note.put("owner", owner);
 		note.put("create_at", new Timestamp( System.currentTimeMillis()));
 		
@@ -65,7 +67,8 @@ public class NoteService {
 	
 	public Map<String, Object> update(Map<String, Object> note){
 		note.put("update_at", new Timestamp( System.currentTimeMillis()));
-		
+		note.put("content", HtmlUtils.htmlEscape((String)note.get("content")));
+
 		this.noteMapper.update(note);
 		
 		return note;
